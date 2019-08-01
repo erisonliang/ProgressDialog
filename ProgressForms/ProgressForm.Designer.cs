@@ -42,6 +42,7 @@
             this.CancelButton.TabIndex = 0;
             this.CancelButton.Text = "キャンセル";
             this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // ProgressBar
             // 
@@ -70,7 +71,7 @@
             this.SubMessageLabel.TabIndex = 3;
             this.SubMessageLabel.Text = "hogehogeしています";
             // 
-            // Form1
+            // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -80,8 +81,9 @@
             this.Controls.Add(this.ProgressBar);
             this.Controls.Add(this.CancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form1";
+            this.Name = "ProgressForm";
             this.Text = "Form1";
+            this.Shown += new System.EventHandler(this.ProgressForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
