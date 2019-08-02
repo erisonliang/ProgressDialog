@@ -27,21 +27,16 @@ namespace TestForm
             }
         }
 
-        private void HeavyWork(IProgress<ProgressReport> progress)
+        private async Task HeavyWork(IProgress<ProgressReport> progress)
         {
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 100; i++)
             {
-                var list = new List<int>();
-                for(int j = 0; j < 100000; j ++)
-                {
-                    list.Add(j);
-                }
-
+                await Task.Delay(50);
                 progress.Report(new ProgressReport
                 {
                     WorkTitle = "This is Title",
                     MainMessage = "Progress...",
-                    Percent = i * 10
+                    Percent = i
                 });
             }
         }

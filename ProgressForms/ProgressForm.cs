@@ -13,9 +13,9 @@ namespace ProgressForms
     public partial class ProgressForm : Form
     {
         private IProgress<ProgressReport> _progress;
-        private Action<IProgress<ProgressReport>> _doWork;
+        private Func<IProgress<ProgressReport>, Task> _doWork;
 
-        public ProgressForm(Action<IProgress<ProgressReport>> doWork)
+        public ProgressForm(Func<IProgress<ProgressReport>, Task> doWork)
         {
             InitializeComponent();
             _progress = new Progress<ProgressReport>(SetProgressValue);
@@ -29,17 +29,17 @@ namespace ProgressForms
 
         private void SetProgressValue(ProgressReport report)
         {
-            MainMessageLabel.Text = report.MainMessage;
+            MainMessageLabel.Text = report.MainMessage + report.Percent;
             SubMessageLabel.Text = report.SubMessage;
             ProgressBar.Value = report.Percent;
         }
 
-        private void ProgressForm_Shown(object sender, EventArgs e)
+        private async void ProgressForm_Shown(object sender, EventArgs e)
         {
             if (_doWork == null)
                 throw new InvalidOperationException("work is nothing.");
 
-            _doWork(_progress);
+            await _doWork(_progress);
             MessageBox.Show("Complete.");
         }
     }
